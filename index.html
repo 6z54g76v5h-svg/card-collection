@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Graded Card Collection — Reference List</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Searchable reference list of graded trading card certification numbers.">
+<style>
+  :root{
+    --ink:#12100e; --ink-2:#3a3632; --muted:#6f6a63; --line:#e3ded6;
+    --bg:#faf8f5; --card:#ffffff; --accent:#a3321f; --psa:#1f5f8b; --grey:#8a857e;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:40px 22px 72px}
+  header{border-bottom:2px solid var(--ink);padding-bottom:22px;margin-bottom:26px}
+  .kicker{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:10px}
+  h1{font-size:clamp(28px,4.6vw,44px);line-height:1.1;margin:0 0 12px;letter-spacing:-.02em}
+  .sub{color:var(--ink-2);max-width:62ch;margin:0}
+  .stats{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0 4px;padding:0;list-style:none}
+  .stats li{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:14px;color:var(--ink-2)}
+  .stats b{display:block;font-size:20px;color:var(--ink);letter-spacing:-.01em}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:26px 0 14px;position:sticky;top:0;background:var(--bg);padding:12px 0;z-index:5;border-bottom:1px solid var(--line)}
+  input[type=search]{flex:1 1 260px;min-width:200px;padding:12px 14px;font-size:15px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink)}
+  input[type=search]:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+  .count{font-size:14px;color:var(--muted);white-space:nowrap}
+  .tablecard{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  table{width:100%;border-collapse:collapse}
+  thead th{text-align:left;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:14px 16px;border-bottom:1px solid var(--line);background:#fdfcfa;white-space:nowrap}
+  thead th.sortable{cursor:pointer;user-select:none}
+  thead th.sortable:hover{color:var(--ink)}
+  thead th .arrow{opacity:.35;font-size:10px}
+  thead th[aria-sort] .arrow{opacity:1;color:var(--accent)}
+  tbody td{padding:13px 16px;border-bottom:1px solid #f0ece5;vertical-align:top}
+  tbody tr:nth-child(even){background:#fdfcfa}
+  tbody tr:last-child td{border-bottom:0}
+  .idx{color:var(--muted);font-variant-numeric:tabular-nums;width:44px}
+  .yr{font-variant-numeric:tabular-nums;white-space:nowrap}
+  .nm{font-weight:600}
+  .cert{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13.5px;white-space:nowrap;color:var(--ink);text-decoration:none}
+  a.cert{border-bottom:1px solid #c9c3ba}
+  a.cert:hover{color:var(--accent);border-bottom-color:var(--accent)}
+  .tag{display:inline-block;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;padding:3px 7px;border-radius:5px;margin-right:8px;vertical-align:1px}
+  .tag.psa{background:#e8f1f8;color:var(--psa)}
+  .tag.other{background:#f2f0ec;color:var(--grey)}
+  .warn{color:var(--accent);font-weight:700;cursor:help}
+  .empty{padding:40px 16px;text-align:center;color:var(--muted)}
+  .note{margin-top:26px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:18px 20px}
+  .note h2{margin:0 0 10px;font-size:15px}
+  .note ul{margin:0;padding-left:20px;color:var(--ink-2);font-size:14.5px}
+  .note li{margin:5px 0}
+  footer{margin-top:34px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:16px}
+  .hint{font-size:12.5px;color:var(--muted);margin:0 0 10px}
+  @media (max-width:640px){
+    .wrap{padding:26px 14px 56px}
+    thead th:nth-child(1),tbody td:nth-child(1){display:none}
+    thead th,tbody td{padding:11px 12px}
+    .cert{font-size:12.5px;white-space:normal}
+  }
+  @media print{
+    body{background:#fff}
+    .toolbar,.hint,.note{display:none}
+    .tablecard{border:0}
+    tbody tr{break-inside:avoid}
+    .warn{color:#000}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kicker">Collection reference</div>
+    <h1>Graded Card Collection</h1>
+    <p class="sub">Every card listed by year, subject and certification number. Search a single card, or sort by any column. Certification numbers link straight to the grader’s lookup page.</p>
+    <ul class="stats">
+      <li><b id="s-total">0</b>cards listed</li>
+      <li><b id="s-psa">0</b>PSA numbered</li>
+      <li><b id="s-other">0</b>other / cut signature</li>
+      <li><b id="s-people">0</b>distinct subjects</li>
+    </ul>
+  </header>
+
+  <div class="toolbar">
+    <input type="search" id="q" placeholder="Search a name, year or cert number…" autocomplete="off" aria-label="Search cards">
+    <span class="count" id="count"></span>
+  </div>
+
+  <p class="hint">Tap a column heading to sort. Numbers are shown exactly as they appear on the label.</p>
+
+  <div class="tablecard">
+    <table>
+      <thead>
+        <tr>
+          <th class="sortable" data-k="id"># <span class="arrow">&#9650;</span></th>
+          <th class="sortable" data-k="year">Year <span class="arrow">&#9650;</span></th>
+          <th class="sortable" data-k="name">Name <span class="arrow">&#9650;</span></th>
+          <th class="sortable" data-k="cert">Certification <span class="arrow">&#9650;</span></th>
+        </tr>
+      </thead>
+      <tbody id="body"></tbody>
+    </table>
+    <div class="empty" id="empty" hidden>No card matches that search.</div>
+  </div>
+
+  <div class="note">
+    <h2>Three things worth a second look before you list</h2>
+    <ul>
+      <li><span class="warn">&#9888;</span> marks certification numbers that don’t fit PSA’s usual 8 or 10 digit format — worth confirming against the slab before quoting them in a listing.</li>
+      <li><strong>&ldquo;Autographs&rdquo;</strong> sits in the name column for one 2001 slab. It reads like a set or brand rather than a player, and is left exactly as written.</li>
+      <li><strong>Cut Signature / Signature Cut</strong> rows are not PSA-numbered slabs, and no grading company is stated for them in the source list.</li>
+    </ul>
+  </div>
+
+  <footer>
+    Compiled from the collection list. Always check the certification image and details against the grader’s own record for the card in hand.
+  </footer>
+</div>
+
+<script>
+const CARDS = [{"id":1,"year":"no year","name":"Micheal Jordan","cert":"PSA # 114376669","disp":"PSA # 114376669","n":"114376669","check":"https://www.psacard.com/cert/114376669","isPsa":true},{"id":2,"year":"no year","name":"Micheal Jordan","cert":"PSA # 114376668","disp":"PSA # 114376668","n":"114376668","check":"https://www.psacard.com/cert/114376668","isPsa":true},{"id":3,"year":"2015","name":"Nikola Jokic","cert":"PSA # 61827145","disp":"PSA # 61827145","n":"61827145","check":"https://www.psacard.com/cert/61827145","isPsa":true},{"id":4,"year":"1999","name":"Ricky Williams","cert":"PSA # 036324776","disp":"PSA # 036324776","n":"036324776","check":"https://www.psacard.com/cert/036324776","isPsa":true},{"id":5,"year":"1999","name":"Ricky Williams","cert":"PSA # 01572149","disp":"PSA # 01572149","n":"01572149","check":"https://www.psacard.com/cert/01572149","isPsa":true},{"id":6,"year":"1992","name":"Hank Aaron","cert":"PSA # 83130148","disp":"PSA # 83130148","n":"83130148","check":"https://www.psacard.com/cert/83130148","isPsa":true},{"id":7,"year":"2003","name":"Tom Brady","cert":"PSA # 57512017","disp":"PSA # 57512017","n":"57512017","check":"https://www.psacard.com/cert/57512017","isPsa":true},{"id":8,"year":"1989","name":"Ken Griffey, Jr","cert":"PSA # 03151979","disp":"PSA # 03151979","n":"03151979","check":"https://www.psacard.com/cert/03151979","isPsa":true},{"id":9,"year":"1989","name":"Ken Griffey, Jr","cert":"PSA # 19346548","disp":"PSA # 19346548","n":"19346548","check":"https://www.psacard.com/cert/19346548","isPsa":true},{"id":10,"year":"1989","name":"Ken Griffey, Jr","cert":"PSA # 0001724058","disp":"PSA # 0001724058","n":"0001724058","check":"https://www.psacard.com/cert/0001724058","isPsa":true},{"id":11,"year":"1989","name":"Ken Griffey, Jr","cert":"PSA # 04119523","disp":"PSA # 04119523","n":"04119523","check":"https://www.psacard.com/cert/04119523","isPsa":true},{"id":12,"year":"1989","name":"Ken Griffey, Jr","cert":"PSA # 0002340496","disp":"PSA # 0002340496","n":"0002340496","check":"https://www.psacard.com/cert/0002340496","isPsa":true},{"id":13,"year":"1989","name":"Ken Griffey, Jr","cert":"PSA # 0006355078","disp":"PSA # 0006355078","n":"0006355078","check":"https://www.psacard.com/cert/0006355078","isPsa":true},{"id":14,"year":"2006","name":"Reggie Bush","cert":"PSA # 81594878","disp":"PSA # 81594878","n":"81594878","check":"https://www.psacard.com/cert/81594878","isPsa":true},{"id":15,"year":"2003-04","name":"Lebron James","cert":"PSA # 0012967361","disp":"PSA # 0012967361","n":"0012967361","check":"https://www.psacard.com/cert/0012967361","isPsa":true},{"id":16,"year":"1990","name":"Emmitt Smith","cert":"PSA # 81146912","disp":"PSA # 81146912","n":"81146912","check":"https://www.psacard.com/cert/81146912","isPsa":true},{"id":17,"year":"1990","name":"Edgerrin James","cert":"PSA # 05334149","disp":"PSA # 05334149","n":"05334149","check":"https://www.psacard.com/cert/05334149","isPsa":true},{"id":18,"year":"1999","name":"Edgerrin James","cert":"PSA # 01400861","disp":"PSA # 01400861","n":"01400861","check":"https://www.psacard.com/cert/01400861","isPsa":true},{"id":19,"year":"2014","name":"Marquise Lee","cert":"PSA # 0008287769","disp":"PSA # 0008287769","n":"0008287769","check":"https://www.psacard.com/cert/0008287769","isPsa":true},{"id":20,"year":"1987","name":"Wayne Gretzky","cert":"PSA # 72468882","disp":"PSA # 72468882","n":"72468882","check":"https://www.psacard.com/cert/72468882","isPsa":true},{"id":21,"year":"1983","name":"Wayne Gretzky","cert":"PSA # 71228153","disp":"PSA # 71228153","n":"71228153","check":"https://www.psacard.com/cert/71228153","isPsa":true},{"id":22,"year":"2008","name":"Kevin Smith","cert":"PSA # 15068431","disp":"PSA # 15068431","n":"15068431","check":"https://www.psacard.com/cert/15068431","isPsa":true},{"id":23,"year":"2008","name":"Steve Slaton","cert":"PSA # 14623430","disp":"PSA # 14623430","n":"14623430","check":"https://www.psacard.com/cert/14623430","isPsa":true},{"id":24,"year":"1989","name":"Randy Johnson","cert":"PSA # 0002542407","disp":"PSA # 0002542407","n":"0002542407","check":"https://www.psacard.com/cert/0002542407","isPsa":true},{"id":25,"year":"1989","name":"Randy Johnson","cert":"PSA # 06334681","disp":"PSA # 06334681","n":"06334681","check":"https://www.psacard.com/cert/06334681","isPsa":true},{"id":26,"year":"1989","name":"Randy Johnson","cert":"PSA # 06354658","disp":"PSA # 06354658","n":"06354658","check":"https://www.psacard.com/cert/06354658","isPsa":true},{"id":27,"year":"1989","name":"Randy Johnson","cert":"PSA # 17185812","disp":"PSA # 17185812","n":"17185812","check":"https://www.psacard.com/cert/17185812","isPsa":true},{"id":28,"year":"2001","name":"Ladainian Tomlinson","cert":"PSA # 0007306015","disp":"PSA # 0007306015","n":"0007306015","check":"https://www.psacard.com/cert/0007306015","isPsa":true},{"id":29,"year":"2001","name":"Autographs","cert":"PSA # 0004948247","disp":"PSA # 0004948247","n":"0004948247","check":"https://www.psacard.com/cert/0004948247","isPsa":true},{"id":30,"year":"1987","name":"Greg Maddux","cert":"PSA # 0006082434","disp":"PSA # 0006082434","n":"0006082434","check":"https://www.psacard.com/cert/0006082434","isPsa":true},{"id":31,"year":"2003","name":"Anquan Boldin","cert":"PSA # 0004301936","disp":"PSA # 0004301936","n":"0004301936","check":"https://www.psacard.com/cert/0004301936","isPsa":true},{"id":32,"year":"2001","name":"Snoop Minnis","cert":"PSA # 0001163153","disp":"PSA # 0001163153","n":"0001163153","check":"https://www.psacard.com/cert/0001163153","isPsa":true},{"id":33,"year":"2001","name":"Ladainian Tomlinson","cert":"PSA # 0007306021","disp":"PSA # 0007306021","n":"0007306021","check":"https://www.psacard.com/cert/0007306021","isPsa":true},{"id":34,"year":"2005","name":"Stephen Drew","cert":"PSA # 0005252599","disp":"PSA # 0005252599","n":"0005252599","check":"https://www.psacard.com/cert/0005252599","isPsa":true},{"id":35,"year":"1971","name":"Nolan Ryan","cert":"PSA # 00014897267","disp":"PSA # 00014897267","n":"00014897267","check":"https://www.psacard.com/cert/00014897267","isPsa":true},{"id":36,"year":"1991","name":"Chipper Jones","cert":"PSA # 21709202","disp":"PSA # 21709202","n":"21709202","check":"https://www.psacard.com/cert/21709202","isPsa":true},{"id":37,"year":"2005","name":"Dwight Howard","cert":"PSA # 14918088","disp":"PSA # 14918088","n":"14918088","check":"https://www.psacard.com/cert/14918088","isPsa":true},{"id":38,"year":"2011","name":"Mike Trout","cert":"PSA # 52333054","disp":"PSA # 52333054","n":"52333054","check":"https://www.psacard.com/cert/52333054","isPsa":true},{"id":39,"year":"1987","name":"Barry Bonds","cert":"PSA # 81253600","disp":"PSA # 81253600","n":"81253600","check":"https://www.psacard.com/cert/81253600","isPsa":true},{"id":40,"year":"1991","name":"Pedro Martinez","cert":"PSA # 71477443","disp":"PSA # 71477443","n":"71477443","check":"https://www.psacard.com/cert/71477443","isPsa":true},{"id":41,"year":"1988","name":"Bo Jackson","cert":"PSA # 44515941","disp":"PSA # 44515941","n":"44515941","check":"https://www.psacard.com/cert/44515941","isPsa":true},{"id":42,"year":"2006","name":"Leon Washington","cert":"PSA # 0004973510","disp":"PSA # 0004973510","n":"0004973510","check":"https://www.psacard.com/cert/0004973510","isPsa":true},{"id":43,"year":"2018","name":"Tony Gwynn","cert":"Cut Signature","disp":"Cut Signature","n":null,"check":null,"isPsa":false},{"id":44,"year":"2001","name":"Tiger Woods","cert":"PSA # 58522070","disp":"PSA # 58522070","n":"58522070","check":"https://www.psacard.com/cert/58522070","isPsa":true},{"id":45,"year":"—","name":"Ernie Stautner","cert":"Signature Cut","disp":"Signature Cut","n":null,"check":null,"isPsa":false},{"id":46,"year":"—","name":"Darryl Strawberry","cert":"Cut Signature","disp":"Cut Signature","n":null,"check":null,"isPsa":false}];
+const body = document.getElementById("body");
+const empty = document.getElementById("empty");
+const q = document.getElementById("q");
+const countEl = document.getElementById("count");
+let sortKey = "id", sortDir = 1;
+
+function sortVal(c, k){
+  if (k === "id") return c.id;
+  if (k === "year"){
+    const m = String(c.year).match(/[0-9]{4}/);
+    return m ? parseInt(m[0], 10) : 9999;
+  }
+  if (k === "cert") return c.n ? c.n.padStart(12, "0") : "zzz" + c.cert;
+  return String(c.name).toLowerCase();
+}
+
+function render(){
+  const term = q.value.trim().toLowerCase();
+  let list = CARDS.filter(c => !term ||
+    (c.name + " " + c.year + " " + c.cert + " " + (c.n || "")).toLowerCase().indexOf(term) !== -1);
+  list = list.slice().sort((a, b) => {
+    const x = sortVal(a, sortKey), y = sortVal(b, sortKey);
+    if (x < y) return -1 * sortDir;
+    if (x > y) return 1 * sortDir;
+    return a.id - b.id;
+  });
+
+  body.innerHTML = list.map(c => {
+    const tag = c.isPsa
+      ? '<span class="tag psa">PSA</span>'
+      : '<span class="tag other">Cut sig</span>';
+    const cert = c.check
+      ? '<a class="cert" href="' + c.check + '" target="_blank" rel="noopener">' + tag + c.disp + '</a>'
+      : '<span class="cert">' + tag + c.disp + '</span>';
+    const len = c.n ? c.n.length : 0;
+    const warn = (c.n && len !== 8 && len !== 10)
+      ? ' <span class="warn" title="' + len + ' digits, not PSA usual 8 or 10 digit length">&#9888;</span>'
+      : '';
+    return '<tr>' +
+      '<td class="idx">' + c.id + '</td>' +
+      '<td class="yr">' + c.year + '</td>' +
+      '<td class="nm">' + c.name + '</td>' +
+      '<td>' + cert + warn + '</td>' +
+    '</tr>';
+  }).join("");
+
+  empty.hidden = list.length > 0;
+  countEl.textContent = term
+    ? list.length + " of " + CARDS.length + " cards"
+    : CARDS.length + " cards";
+}
+
+document.querySelectorAll("th.sortable").forEach(th => {
+  th.addEventListener("click", () => {
+    const k = th.dataset.k;
+    if (k === sortKey) sortDir *= -1;
+    else { sortKey = k; sortDir = 1; }
+    document.querySelectorAll("th.sortable").forEach(o => {
+      o.removeAttribute("aria-sort");
+      o.querySelector(".arrow").innerHTML = "&#9650;";
+    });
+    th.setAttribute("aria-sort", sortDir === 1 ? "ascending" : "descending");
+    th.querySelector(".arrow").innerHTML = sortDir === 1 ? "&#9650;" : "&#9660;";
+    render();
+  });
+});
+q.addEventListener("input", render);
+
+const psaCount = CARDS.filter(c => c.isPsa).length;
+document.getElementById("s-total").textContent = CARDS.length;
+document.getElementById("s-psa").textContent = psaCount;
+document.getElementById("s-other").textContent = CARDS.length - psaCount;
+document.getElementById("s-people").textContent = new Set(CARDS.map(c => c.name)).size;
+render();
+</script>
+</body>
+</html>
